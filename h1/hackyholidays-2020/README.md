@@ -7,6 +7,13 @@ I started playing on December 15th. That date the 3rd flag was already release a
 ## Flag 3 - People Rater
 Description: The grinch likes to keep lists of all the people he hates. This year he's gone digital but there might be a record that doesn't belong!
 
+Screenshot: ![people-rater-1](./img/people-rater-1.png)
+
+Pressing the "Load More" button just laods more name-buttons into the page. The button is pressable until 16 name-buttons are present. When pressing on a name-button an alert opens with a bad associated attribute such as "disgusting" or "weak" - just like the Grinch would do.
+
+So, let's see what the page is doing under the hood.
+The complete sourcecode of the page is here: [People Rater Sourcecode](./code/people-rater.md)
+
 
 ## Flag 1
 robots.txt
