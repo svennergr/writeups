@@ -125,7 +125,7 @@ The htmledit.php is injected into the index.php via an iframe:
 
 We notice, that the htmledit.php takes a parameter named `code` which is some HTML code. 
 
-If we try to inject XSS here directly via https://challenge-0721.intigriti.io/htmledit.php?code=%3Cimg%20src=x%20onerror=alert(1)%3E we can see, that this does not work because of a quite restrictive Content Security Policy.
+If we try to inject XSS here directly via [https://challenge-0721.intigriti.io/htmledit.php?code=%3Cimg%20src=x%20onerror=alert(1)%3E] we can see, that this does not work because of a quite restrictive Content Security Policy.
 However the contents of the page looks like that:
 	
 ```html
@@ -163,11 +163,11 @@ Back to the CSP - it looks like this:
 content-security-policy: script-src 'nonce-ea99c533295e40c93407e85ff1de9f93'; frame-src https:; object-src 'none'; base-uri 'none';
 ```
 	
-Understanding the CSP:
-	- it allows scripts with the given nonce
-	- the nonce is not really bruteforce or guessable
-	- it allows frames with the https: scheme
-	- it does not allow object, embed or applet tags
+Understanding the CSP
+- it allows scripts with the given nonce
+- the nonce is not really bruteforce or guessable
+- it allows frames with the https: scheme
+- it does not allow object, embed or applet tags
 
 Basically the CSP is protecting the htmledit.php quite good from XSS - however we can include HTML tags and frames into that page.
 
