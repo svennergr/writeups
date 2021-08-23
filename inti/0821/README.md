@@ -158,8 +158,11 @@ It takes a querystring and parses JavaScript objects from it. This seems like an
 var paramStr = '__proto__[foo]=bar';
 
 deparam(paramStr);
+const a={
+  "noFoo":"noBar"
+};
 
-console.log(`Nice evenings at a ${{}.foo}.`)
+console.log(`Nice evenings at a ${a.foo}.`)
 ```
 With Prototype Pollution we can set arbitrary keys on all objects used in our application.
 
