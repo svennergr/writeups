@@ -32,7 +32,7 @@ Sure `innernetwork.com` is not owned or operated by Google, but the XSS was clea
 
 At this point it is good to remember that `innernetwork.com` used the URL parameters, which reflected into the DOM. Appending HTML/JS to these parameters lead to an XSS. 
 
-After having a first look at `innernetwork.com` I noticed, that the cause of the XSS is somewhere in Google's Addsense library. I simply used `"><img src=x onerror=debugger>` as a payload and debugged my way through a lot of code of the Adsense library. If I understood the flow correctly Adsense is basically doing the following:
+After having a first look at `innernetwork.com` I noticed, that the cause of the XSS is somewhere in Google's Adsense library. I simply used `"><img src=x onerror=debugger>` as a payload and debugged my way through a lot of code of the Adsense library. If I understood the flow correctly Adsense is basically doing the following:
 
 1. Getting the input parameters.
 2. Loading an iframe within `google.com`.
@@ -96,6 +96,6 @@ But shortly after that, the first report was reopened and accepted.
 
 ## Wrapup
 
-Finding this XSS on Google was a great bust mostly fun experience. You don't always need lots of recon and hours of search to find vulnerabilities. Often times you just need luck - and that's what I had in this case. 
+Finding this XSS on Google was a great but mostly fun experience. You don't always need lots of recon and hours of search to find vulnerabilities. Often times you just need luck - and that's what I had in this case. 
 
 Even though the first report was quickly rejected I really liked the response and responsetimes from the team at Google. And also great job at creating [https://bughunters.google.com](https://bughunters.google.com) - I really like the looks of it.
