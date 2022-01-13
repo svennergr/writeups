@@ -1,0 +1,17 @@
+{
+  "name": "sourcemaps-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
+  },
+  "scripts": {
+    "build:inline-sourcemap": "webpack --config ./webpack.config.cjs --devtool inline-source-map",
+    "build": "webpack --config ./webpack.config.cjs --devtool source-map",
+    "start": "node ./dist/main.js"
+  }
+}
