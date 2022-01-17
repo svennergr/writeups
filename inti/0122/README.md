@@ -25,7 +25,7 @@ The solution...
     Should be reported at go.intigriti.com/submit-solution
 ```
 
-(taken from https://challenge-0122.intigriti.io / 01/12/2022 - 16:00 CET)
+(taken from https://challenge-0122.intigriti.io / 01/12/2022 - 16:00 CET
 
 ## Hints
 
