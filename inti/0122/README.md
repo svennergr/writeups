@@ -48,6 +48,7 @@ This hints already in the direction, that we should change the parameter to some
 
 Best way to understand is an analysis of the application's source code. Having a look at the requested ressources, we see the file https://challenge-0122-challenge.intigriti.io/static/js/main.02a05519.js as the main javascript file. However when opening this file, we see a reference to https://challenge-0122-challenge.intigriti.io/static/js/main.02a05519.js.LICENSE.txt. Having a look at this shows, that the application is an application developed with the modern web-framework [React](https://reactjs.org/).
 
+
 If we take a look at the "Sources" tab of the Chrome DevTools, we suddenly see more JavaScript files, than just the main.js file:
 
 ![](images/sources.png)
@@ -80,6 +81,7 @@ export default function random() {
 }
 ```
 
+
 The project basically just logs a random number. The script to generate the random number is based on another file. With the command `yarn build` we can build the project, which generates a `dist/main.js` and a `dist/main.js.map` file.
 
 1. `dist/main.js`
@@ -109,6 +111,7 @@ The project basically just logs a random number. The script to generate the rand
 }
 ```
 
+
 The `main.js.map` file is referenced from the `main.js` file in a comment in the last line: `//# sourceMappingURL=main.js.map`
 This tells applications, browsers or debuggers the location of the sourcemaps for this exact file. Sourcemaps can either be outsourced in another file, or can also be inline, where the contents of the `main.js.map` file are appended as a base64 string. Inline sourcemaps can be generated in the demo project by issuing a `yarn build:inline-sourcemap`, which will generate the following single `dist/main.js` file:
 
@@ -119,7 +122,8 @@ This tells applications, browsers or debuggers the location of the sourcemaps fo
 
 To further understand sourcemaps, we have a look at `dist/main.js.map`. The field `"sources"` describes the source files, which are used to build that exact script. In our case we can see our two source files `src/main.js` and `src/random.js`. The next field is `"sourcesContent"` and shows the source content of the previously mentioned files. This is great for debugging.
 
-The magic though lies in the `"mappings"` field. This field is a list of pointers, which connects the generated file with the source files. The way these values are encoded is the so called Base64 VLQ format and has a great description at an rather old [HTML5Rocks page](https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-base64vlq). Another great tool is the VLQ De-/Encoder tool at [https://www.murzwin.com/base64vlq.html](https://www.murzwin.com/base64vlq.html).
+
+The magic though is in the `"mappings"` field. This field is a list of pointers, which connects the generated file with the source files. The way these values are encoded is the so called Base64 VLQ format and has a great description at an rather old [HTML5Rocks page](https://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-base64vlq). Another great tool is the VLQ De-/Encoder tool at [https://www.murzwin.com/base64vlq.html](https://www.murzwin.com/base64vlq.html).
 If we input our mappings `"mBAEAA,QAAQC,ICKCC,KAAKC,W"` into that tool, we can perfectly see, how these mappings are interpreted:
 
 The result of the VLQ in general is the following data:
@@ -141,12 +145,16 @@ Which is resulting in the following mapppings:
 ```
 
 Let's just focus on this part `([7,9](#1)=>[0,31])` for now. We should keep in mind, that these numbers are 0-indexed. To find the correct line and column, we have to add 1 to each.
+
 The string `([7,9](#1)=>[0,31])` basically means the following:
 The part of file `#1`, which is `src/random.js`, starting at line 8 and column 10, is mapped to the output file at line 0 and column 32.
 
+
 We can verify this if we look at line 8 and column 10 of `random.js`, we will find the following: `Math.random()`
 
+
 If we now look at the output file at line 0 and column 32: `Math.random()`
+
 
 Greate visualization offers [sokras sourcemap visualizer](https://sokra.github.io/source-map-visualization/#base64,KCgpPT57InVzZSBzdHJpY3QiO2NvbnNvbGUubG9nKE1hdGgucmFuZG9tKCkpfSkoKTsKLy8jIHNvdXJjZU1hcHBpbmdVUkw9bWFpbi5qcy5tYXA=,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsIm1hcHBpbmdzIjoibUJBRUFBLFFBQVFDLElDS0NDLEtBQUtDLFciLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9zb3VyY2VtYXBzLXRlc3QvLi9zcmMvbWFpbi5qcyIsIndlYnBhY2s6Ly9zb3VyY2VtYXBzLXRlc3QvLi9zcmMvcmFuZG9tLmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCByYW5kb20gZnJvbSBcIi4vcmFuZG9tLmpzXCI7XG5cbmNvbnNvbGUubG9nKHJhbmRvbSgpKTtcbiIsIi8qKlxuICogR2VuZXJhdGVzIGEgcmFuZG9tIG51bWJlciBiZXR3ZWVuIDAgYW5kIDEuXG4gKlxuICogQGV4cG9ydFxuICogQHJldHVybiB7bnVtYmVyfSBBIHJhbmRvbSBudW1iZXIgYmV0d2VlbiAwIGFuZCAxLlxuICovXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiByYW5kb20oKSB7XG4gIHJldHVybiBNYXRoLnJhbmRvbSgpO1xufVxuIl0sIm5hbWVzIjpbImNvbnNvbGUiLCJsb2ciLCJNYXRoIiwicmFuZG9tIl0sInNvdXJjZVJvb3QiOiIifQ==,aW1wb3J0IHJhbmRvbSBmcm9tICIuL3JhbmRvbS5qcyI7Cgpjb25zb2xlLmxvZyhyYW5kb20oKSk7Cg==,LyoqCiAqIEdlbmVyYXRlcyBhIHJhbmRvbSBudW1iZXIgYmV0d2VlbiAwIGFuZCAxLgogKgogKiBAZXhwb3J0CiAqIEByZXR1cm4ge251bWJlcn0gQSByYW5kb20gbnVtYmVyIGJldHdlZW4gMCBhbmQgMS4KICovCmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIHJhbmRvbSgpIHsKICByZXR1cm4gTWF0aC5yYW5kb20oKTsKfQo=), which also shows these mappings on the bottom of the page.
 
@@ -154,13 +162,16 @@ Greate visualization offers [sokras sourcemap visualizer](https://sokra.github.i
 
 Now that we have the source of the generated React application, we can have further looks on it.
 
+
 Unfortunately I did not found a script or tool, which downloads the sourcemaps and generates the original sources from it. But nevertheless, this is not too complicated and thus I wrote such script on my own, which is available at [https://github.com/svennergr/originmap](https://github.com/svennergr/originmap).
+
 
 With this tool I can download the sourcemap from the challenge and recreate the files local:
 
 ```
 curl https://challenge-0122-challenge.intigriti.io/static/js/main.02a05519.js.map -o- | originmap
 ```
+
 
 This will generate all the source files found in the sourcemap, resulting in a structure like this:
 
@@ -170,7 +181,9 @@ This will generate all the source files found in the sourcemap, resulting in a s
 
 Since we already know, that this application is a React application, we can recreate it to make local changes and test them directly. At first we are cleaning the generated sourcefiles from files, which we do not need. This are all files except files in the root of the `out` folder and `pages` folder. This will result in the following structure:
 
+
 ![](images/generated_filtered.png)
+
 
 Then we will use the tool `create-react-app` to create a new React application:
 
@@ -203,6 +216,7 @@ Module not found: Error: Can't resolve 'react-router-dom' in '/Users/sven/repos/
 ```
 
 Sure, the application needs some dependencies, which are not yet installed locally. Let's do that by using `yarn add react-router-dom dompurify` and restart with `yarn start`.
+
 
 This time the application loads successful. Eventhough the app does not look like the online application at the challenge page, the app itself is working properly:
 
