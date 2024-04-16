@@ -2,7 +2,7 @@
 
 This repo contains writeups for different CTFs.
 
-
+- [Intigriti's April 2024 Challenge](./inti/0424/README.md)
 - [Intigriti's January 2022 Challenge](./inti/0122/README.md)
 - [Intigriti's October 2021 Challenge](./inti/1021/README.md)
 - [Intigriti's August 2021 Challenge](./inti/0821/README.md)
